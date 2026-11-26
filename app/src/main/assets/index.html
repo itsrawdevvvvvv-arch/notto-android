@@ -665,6 +665,20 @@ svg.ai-party,svg.ai-hand{transform-origin:50% 90%;animation:wig 1.2s ease-in-out
 #device[data-theme=dark] .fan i{color:#15151a}
 
 .band p mark{background:rgba(var(--a-rgb),.3);color:inherit;border-radius:4px;padding:0 2px}
+
+#s-new::before{display:none!important}
+#s-new{
+  clip-path:none!important;
+  transform-origin:calc(100% - 32px) calc(100% - 32px)!important;
+  transform:scale(.82) translateY(20px)!important;
+  opacity:0!important;
+  transition:transform calc(.34s * var(--k)) var(--spring),opacity calc(.2s * var(--k)) ease,visibility calc(0s * var(--k)) calc(.34s * var(--k))!important;
+}
+#s-new.on{
+  transform:scale(1) translateY(0)!important;
+  opacity:1!important;
+  transition:transform calc(.38s * var(--k)) var(--spring),opacity calc(.22s * var(--k)) ease,visibility 0s!important;
+}
 </style>
 </head>
 <body data-theme="dark">

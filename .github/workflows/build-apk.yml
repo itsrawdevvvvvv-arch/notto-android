@@ -38,9 +38,12 @@ jobs:
       - name: Build Signed Release APK
         run: gradle assembleRelease --no-daemon
 
-      - name: Zipalign, Re-sign and Verify APK
+      - name: Zipalign, Re-sign (v1+v2+v3) and Verify APK
         run: |
-          BUILD_TOOLS=$(ls -d "$ANDROID_HOME/build-tools/"* | sort -V | tail -n 1)
+          BUILD_TOOLS=$(ls -d "$ANDROID_HOME/build-tools/34."* | sort -V | tail -n 1)
+          if [ -z "$BUILD_TOOLS" ]; then
+            BUILD_TOOLS=$(ls -d "$ANDROID_HOME/build-tools/"* | sort -V | head -n 1)
+          fi
           echo "Using build-tools: $BUILD_TOOLS"
           "$BUILD_TOOLS/zipalign" -p -f -v 4 \
             app/build/outputs/apk/release/app-release.apk \
@@ -50,16 +53,16 @@ jobs:
             --ks-pass pass:notto1234 \
             --key-pass pass:notto1234 \
             --ks-key-alias notto \
+            --min-sdk-version 21 \
             --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
-            --out app/build/outputs/apk/release/Notto-v1.0.1.apk \
+            --out app/build/outputs/apk/release/Notto-v1.0.2.apk \
             app/build/outputs/apk/release/Notto-aligned.apk
-          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.1.apk
-          "$BUILD_TOOLS/aapt2" dump badging app/build/outputs/apk/release/Notto-v1.0.1.apk | head -n 15
+          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.2.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: notto-release-apk
-          path: app/build/outputs/apk/release/Notto-v1.0.1.apk
+          path: app/build/outputs/apk/release/Notto-v1.0.2.apk

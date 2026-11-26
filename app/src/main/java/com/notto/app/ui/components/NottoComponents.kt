@@ -23,8 +23,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
@@ -187,7 +187,7 @@ fun FloatingPillNav(
         listOf(
             Icons.Rounded.Home to "Notes",
             Icons.Rounded.Search to "Search",
-            Icons.Rounded.Schedule to "Focus",
+            Icons.Rounded.DateRange to "Focus",
             Icons.Rounded.Settings to "Settings"
         )
     }

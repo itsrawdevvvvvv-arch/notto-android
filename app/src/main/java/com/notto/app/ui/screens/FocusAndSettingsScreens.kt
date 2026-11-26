@@ -22,8 +22,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronRight
-import androidx.compose.material.icons.rounded.Fingerprint
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -301,7 +301,7 @@ fun FocusScreen() {
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = Icons.Rounded.Fingerprint,
+                            imageVector = if (running) Icons.Rounded.Close else Icons.Rounded.Check,
                             contentDescription = "Hold to commit",
                             tint = if (running) Color.White else colors.accent,
                             modifier = Modifier.size(32.dp)
@@ -448,7 +448,7 @@ private fun SettingPillRow(
         }
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(value, fontSize = 14.sp, color = colors.muted)
-            Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = colors.muted, modifier = Modifier.size(18.dp))
+            Text("›", fontSize = 20.sp, color = colors.muted, fontWeight = FontWeight.Bold)
         }
     }
 }

@@ -18,17 +18,19 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Generate Release Keystore
+      - name: Generate Release Keystore (if missing)
         run: |
-          keytool -genkeypair -v \
-            -keystore app/notto-release.jks \
-            -storepass notto1234 \
-            -keypass notto1234 \
-            -alias notto \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -dname "CN=Notto,O=Notto,C=US"
+          if [ ! -f app/notto-release.jks ]; then
+            keytool -genkeypair -v \
+              -keystore app/notto-release.jks \
+              -storepass notto1234 \
+              -keypass notto1234 \
+              -alias notto \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Notto,O=Notto,C=US"
+          fi
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -57,12 +59,14 @@ jobs:
             --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
-            --out app/build/outputs/apk/release/Notto-v1.0.4.apk \
+            --out app/build/outputs/apk/release/Notto-v1.0.5.apk \
             app/build/outputs/apk/release/Notto-aligned.apk
-          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.4.apk
+          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.5.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: notto-release-apk
-          path: app/build/outputs/apk/release/Notto-v1.0.4.apk
+          path: |
+            app/build/outputs/apk/release/Notto-v1.0.5.apk
+            app/notto-release.jks

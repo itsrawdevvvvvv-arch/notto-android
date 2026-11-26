@@ -79,7 +79,9 @@ class MainActivity : ComponentActivity() {
                 ): Boolean {
                     fileUploadCallback?.onReceiveValue(null)
                     fileUploadCallback = filePathCallback
-                    filePickerLauncher.launch("image/*")
+                    val accept = fileChooserParams?.acceptTypes?.joinToString(",") ?: "image/*"
+                    val mime = if (accept.contains("image")) "image/*" else "*/*"
+                    filePickerLauncher.launch(mime)
                     return true
                 }
             }

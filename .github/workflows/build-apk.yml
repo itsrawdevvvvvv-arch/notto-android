@@ -57,12 +57,12 @@ jobs:
             --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
-            --out app/build/outputs/apk/release/Notto-v1.0.3.apk \
+            --out app/build/outputs/apk/release/Notto-v1.0.4.apk \
             app/build/outputs/apk/release/Notto-aligned.apk
-          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.3.apk
+          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/Notto-v1.0.4.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: notto-release-apk
-          path: app/build/outputs/apk/release/Notto-v1.0.3.apk
+          path: app/build/outputs/apk/release/Notto-v1.0.4.apk

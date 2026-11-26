@@ -18,16 +18,28 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Generate Release Keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore app/notto-release.jks \
+            -storepass notto1234 \
+            -keypass notto1234 \
+            -alias notto \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Notto,O=Notto,C=US"
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon
+      - name: Build Signed Release APK
+        run: gradle assembleRelease --no-daemon
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: notto-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: notto-release-apk
+          path: app/build/outputs/apk/release/app-release.apk

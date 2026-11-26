@@ -12,13 +12,26 @@ android {
     defaultConfig {
         applicationId = "com.notto.app"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("NOTTO_KEYSTORE") ?: "notto-release.jks")
+            storePassword = System.getenv("NOTTO_STORE_PASS") ?: "notto1234"
+            keyAlias = System.getenv("NOTTO_KEY_ALIAS") ?: "notto"
+            keyPassword = System.getenv("NOTTO_KEY_PASS") ?: "notto1234"
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

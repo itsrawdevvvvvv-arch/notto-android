@@ -137,25 +137,29 @@ mark{background:#ffe58a;color:inherit;border-radius:4px;padding:0 1px}
 #tabs button svg.i{width:22px;height:22px}
 #tabs button.on{color:var(--accent)}
 #plus{width:64px;height:64px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;flex:none;box-shadow:0 10px 26px rgba(88,86,214,.4)}
-#plus span{display:grid}
-#plus svg.i,#n-close svg.i{width:28px;height:28px;stroke-width:2}
+#plus span{display:grid;transition:rotate calc(.4s * var(--k)) cubic-bezier(.34,1.28,.64,1)}
+#plus.x span{rotate:45deg}
+#tabs{transition:opacity calc(.26s * var(--k)) ease}
+#nav.solo{z-index:51}
+#nav.solo #tabs{opacity:0;pointer-events:none}
+#plus svg.i{width:28px;height:28px;stroke-width:2}
 
 #dim{position:absolute;inset:0;z-index:30;background:#16142a;opacity:0;pointer-events:none;transition:opacity calc(.35s * var(--k))}
 #dim.on{opacity:.38;pointer-events:auto}
 #dim.on.soft{opacity:.24}
 
-#s-new{position:absolute;z-index:50;left:16px;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));padding:20px 14px 78px;border-radius:32px;background:#fff;visibility:hidden;clip-path:inset(calc(100% - 64px) 0px 0px calc(100% - 64px) round 32px);transition:clip-path calc(.42s * var(--k)) cubic-bezier(.4,0,.2,1),visibility calc(0s * var(--k)) calc(.42s * var(--k))}
-#s-new.on{visibility:visible;clip-path:inset(0px 0px 0px 0px round 32px);transition:clip-path calc(.55s * var(--k)) cubic-bezier(.32,1.12,.36,1),visibility calc(0s * var(--k))}
-#s-new::before{content:"";position:absolute;inset:0;background:var(--grad);transition:opacity calc(.3s * var(--k)) calc(.1s * var(--k));pointer-events:none;z-index:1}
+#s-new{position:absolute;z-index:50;left:16px;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));padding:20px 14px 78px;border-radius:32px;background:#fff;visibility:hidden;opacity:0;
+ clip-path:circle(0px at var(--ox,50%) var(--oy,100%));
+ transition:clip-path calc(.44s * var(--k)) cubic-bezier(.36,.72,.3,1),opacity calc(.18s * var(--k)) ease calc(.28s * var(--k)),visibility calc(0s * var(--k)) calc(.46s * var(--k))}
+#s-new.on{visibility:visible;opacity:1;clip-path:circle(var(--or,900px) at var(--ox,50%) var(--oy,100%));
+ transition:clip-path calc(.52s * var(--k)) cubic-bezier(.32,.86,.36,1),opacity calc(.16s * var(--k)) ease,visibility calc(0s * var(--k))}
+#s-new::before{content:none}
 #s-new.on::before{opacity:0;transition:opacity calc(.35s * var(--k)) calc(.04s * var(--k))}
-#s-new>h2,#s-new>.opt{position:relative;z-index:2;opacity:0;translate:0 18px;transition:opacity calc(.12s * var(--k)),translate calc(.3s * var(--k)),scale calc(.11s * var(--k))}
+#s-new>h2,#s-new>.opt{position:relative;z-index:2;opacity:0;translate:0 18px;transition:opacity calc(.14s * var(--k)) calc(.18s * var(--k)),translate calc(.3s * var(--k)),scale calc(.11s * var(--k))}
 #s-new.on>h2,#s-new.on>.opt{opacity:1;translate:0 0;transition:opacity calc(.25s * var(--k)) calc(.14s * var(--k)),translate calc(.45s * var(--k)) var(--spring) calc(.14s * var(--k)),scale calc(.11s * var(--k))}
 #s-new.on>.opt:nth-of-type(1){transition-delay:calc(.19s * var(--k)),calc(.19s * var(--k)),calc(0s * var(--k))}
 #s-new.on>.opt:nth-of-type(2){transition-delay:calc(.25s * var(--k)),calc(.25s * var(--k)),calc(0s * var(--k))}
 #s-new h2{font-size:22px;letter-spacing:-.4px;padding:0 6px 2px}
-#n-close{position:absolute;right:0;bottom:0;width:64px;height:64px;border-radius:50%;z-index:3;background:var(--grad);color:#fff;display:grid;place-items:center}
-#n-close span{display:grid;transition:rotate calc(.5s * var(--k)) var(--pop)}
-#s-new.on #n-close span{rotate:45deg}
 .opt{display:flex;align-items:center;gap:13px;width:100%;text-align:left;border-radius:22px;padding:13px;margin-top:10px;background:var(--c1)}
 .opt+.opt{background:var(--c2)}
 .opt .ic{width:44px;height:44px;border-radius:14px;background:#fff;color:var(--accent);display:grid;place-items:center}
@@ -359,14 +363,9 @@ input[type=range]::-moz-range-thumb{width:28px;height:28px;border:0;border-radiu
 .covgrid .cov{width:100%;height:50px}
 #s-new .sw{width:36px;height:36px;border-color:#fff}
 #s-new .sw.on{box-shadow:0 0 0 2.5px var(--accent)}
-#s-new>.pick{position:relative;z-index:2;opacity:0;translate:0 18px;transition:opacity calc(.12s * var(--k)),translate calc(.3s * var(--k))}
+#s-new>.pick{position:relative;z-index:2;opacity:0;translate:0 18px;transition:opacity calc(.14s * var(--k)) calc(.18s * var(--k)),translate calc(.3s * var(--k))}
 #s-new.on>.pick{opacity:1;translate:0 0;transition:opacity calc(.25s * var(--k)) calc(.16s * var(--k)),translate calc(.45s * var(--k)) var(--spring) calc(.16s * var(--k))}
 #s-new .label{margin:10px 6px 8px}
-
-/* ---------- steady "+" morph ---------- */
-#s-new{transition:clip-path calc(.45s * var(--k)) cubic-bezier(.4,0,.2,1),visibility calc(0s * var(--k)) calc(.45s * var(--k))}
-#n-close span{transition:rotate calc(.35s * var(--k)) ease}
-#s-new.on #n-close span{transition:rotate calc(.5s * var(--k)) var(--pop)}
 
 /* ---------- burning ---------- */
 #homefire{position:absolute;z-index:45;pointer-events:none}
@@ -408,7 +407,7 @@ body[data-theme=dark]{background:#000}
 #device[data-theme=dark] #tabs button.on{color:var(--on-accent)}
 #device[data-theme=dark] #hl::before{background:var(--grad);box-shadow:0 6px 18px rgba(var(--a-rgb),.38)}
 #device[data-theme=dark] #plus{color:var(--on-accent);box-shadow:0 10px 28px rgba(var(--a-rgb),.42)}
-#device[data-theme=dark] #n-close,#device[data-theme=dark] .cta,#device[data-theme=dark] .add button,#device[data-theme=dark] #commit .f{color:var(--on-accent)}
+#device[data-theme=dark] .cta,#device[data-theme=dark] .add button,#device[data-theme=dark] #commit .f{color:var(--on-accent)}
 #device[data-theme=dark] #commit.run .f{color:#06240f}
 #device[data-theme=dark] #dim{background:#000}
 #device[data-theme=dark] #dim.on{opacity:.6}
@@ -762,7 +761,6 @@ svg.ai-party,svg.ai-hand{transform-origin:50% 90%;animation:wig 1.2s ease-in-out
   <div class="pick"><div class="label"><span>Visual cover</span></div><div class="covgrid" id="new-covers"></div></div>
   <button class="opt l" data-new="text"><span class="ic" data-icon="note"></span><span><b>Text Note</b><small>Write down a thought</small></span></button>
   <button class="opt" data-new="check"><span class="ic" data-icon="list"></span><span><b>Checklist</b><small>Track things to do</small></span></button>
-  <button id="n-close" data-close aria-label="Close"><span data-icon="plus"></span></button>
  </div>
 
  <div class="sheet" id="s-edit" role="dialog" aria-label="Editor">
@@ -1003,16 +1001,30 @@ $('#toast').onclick=()=>$('#toast').classList.remove('on');
 
 /* ---------- sheets ---------- */
 let sheet=null,burning=false;
+function setMorphOrigin(){
+ const sh=$('#s-new'),pl=$('#plus');if(!sh||!pl)return;
+ const s=sh.getBoundingClientRect(),p=pl.getBoundingClientRect();
+ if(!s.width||!s.height||!p.width)return;
+ const ox=p.left+p.width/2-s.left,oy=p.top+p.height/2-s.top;
+ const r=Math.hypot(Math.max(ox,s.width-ox),Math.max(oy,s.height-oy))+12;
+ sh.style.transition='none';
+ sh.style.setProperty('--ox',ox.toFixed(1)+'px');
+ sh.style.setProperty('--oy',oy.toFixed(1)+'px');
+ sh.style.setProperty('--or',Math.round(r)+'px');
+ void sh.offsetWidth;
+ sh.style.transition='';
+}
 function openSheet(id){
  if(sheet&&sheet!==id)closeSheet(true);
+ if(id==='s-new'){setMorphOrigin();void $('#s-new').offsetWidth}
  sheet=id;document.activeElement&&document.activeElement.blur();
  $('#'+id).classList.add('on');$('#app').classList.toggle('back',id!=='s-new');$('#device').classList.toggle('dimmed',id!=='s-new');$('#dim').classList.add('on');$('#dim').classList.toggle('soft',id==='s-new');$('#app').inert=true;
- $('#nav').classList.toggle('hide',id!=='s-new');$('#plus').classList.toggle('x',id==='s-new');
+ $('#nav').classList.toggle('hide',id!=='s-new');$('#nav').classList.toggle('solo',id==='s-new');$('#plus').classList.toggle('x',id==='s-new');
 }
 function closeSheet(swap){
  if(!sheet||burning)return;
  const was=sheet;sheet=null;document.activeElement&&document.activeElement.blur();
- $('#'+was).classList.remove('on');$('#plus').classList.remove('x');
+ $('#'+was).classList.remove('on');$('#plus').classList.remove('x');$('#nav').classList.remove('solo');
  if(was==='s-edit')finishEdit();
  if(swap!==true){$('#app').classList.remove('back');$('#device').classList.remove('dimmed');$('#dim').classList.remove('on');$('#nav').classList.remove('hide');$('#app').inert=false}
 }
@@ -1139,7 +1151,7 @@ function updateCar(){
 let carRaf=0;
 $('#car').addEventListener('scroll',()=>{if(!carRaf)carRaf=requestAnimationFrame(()=>{carRaf=0;updateCar()})},{passive:true});
 $('#ticks').onclick=e=>{const b=e.target.closest('[data-tick]');if(b)centerCard(+b.dataset.tick)};
-addEventListener('resize',()=>{updateCar();drawRuler()});
+addEventListener('resize',()=>{updateCar();drawRuler();if(sheet==='s-new')setMorphOrigin()});
 
 /* mouse drag for horizontal scrollers */
 let dragged=false;
@@ -1226,6 +1238,29 @@ function touched(){ed.updated=Date.now();saveSoon();renderStats()}
 function dropBackup(){backup=null;$$('.case').forEach(c=>c.classList.remove('on'))}
 $('#e-title').oninput=e=>{ed.title=e.target.value;touched()};
 $('#e-body').oninput=e=>{ed.body=e.target.value;dropBackup();grow();touched()};
+function addItem(){
+ const v=$('#e-new').value.trim();if(!v){$('#e-new').focus();return}
+ ed.items.push({id:uid(),text:v,done:false});$('#e-new').value='';dropBackup();renderItems();touched();$('#e-new').focus();
+}
+$('#e-add').onclick=addItem;
+$('#e-new').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();addItem()}};
+const CASE={upper:s=>s.toUpperCase(),lower:s=>s.toLowerCase(),title:s=>s.toLowerCase().replace(/(^|[\s(\["“-])(\p{L})/gu,(m,a,b)=>a+b.toUpperCase())};
+$$('.case').forEach(b=>b.onclick=()=>{
+ const undo=b.classList.contains('on');
+ if(!backup)backup={body:ed.body,items:ed.items.map(i=>[i.id,i.text])};
+ const src=new Map(backup.items),f=undo?s=>s:CASE[b.dataset.case];
+ ed.body=f(backup.body);ed.items.forEach(i=>{if(src.has(i.id))i.text=f(src.get(i.id))});
+ $$('.case').forEach(c=>c.classList.toggle('on',c===b&&!undo));if(undo)backup=null;
+ $('#e-body').value=ed.body;renderItems();grow();touched();
+});
+function finishEdit(){
+ if(!ed)return;
+ const pending=$('#e-new').value.trim();
+ if(ed.type==='check'){if(pending)ed.items.push({id:uid(),text:pending,done:false});ed.items=ed.items.filter(i=>i.text.trim())}
+ if(!ed.title.trim()&&!ed.body.trim()&&!ed.items.length)S.notes=S.notes.filter(n=>n!==ed);
+ const id=ed.id;ed=null;save();renderHome(id);renderSearch();
+}
+
 /* ---------- hold helper ---------- */
 function holdable(el,ms,paint,done){
  let p=0,dir=0,last=0,raf=0,fired=false;
@@ -1537,7 +1572,7 @@ $('#speed').onchange=()=>syncAnims();
 function applySettings(){
  applySpeed();
  S.look='dark';
- applyFont();applyTheme();applyTune();
+ applyFont();applyTheme();applyTune();requestAnimationFrame(()=>setMorphOrigin());
  [['#seg-sort',S.sort,'az']].forEach(([id,v,right])=>{$(id).classList.toggle('r',v===right);$$(id+' button').forEach(b=>{b.classList.toggle('on',b.dataset.v===v);b.setAttribute('aria-pressed',b.dataset.v===v)})});
  $('#v-notif').textContent=S.notif.on?fmt12(S.notif.time):'Off';$('#n-state').textContent=S.notif.on?'Scheduled '+fmt12(S.notif.time):'Off';
 }

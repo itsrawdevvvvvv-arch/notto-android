@@ -1,0 +1,3 @@
+-keepattributes *Annotation*
+-dontwarn kotlinx.serialization.**
+-keepclassmembers class com.notto.app.data.** { *; }
